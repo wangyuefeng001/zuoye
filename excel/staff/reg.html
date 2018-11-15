@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{url:staff/reg_ok}" method="post" onsubmit="return login()">
+			<p>用户名：<input type="text" name='username' id="username"></p>
+	        <p>密码：<input type="password" name='password' id="password"></p>
+	        <p>确认密码：<input type="password" name='repassword' id="repassword"></p>
+	        <p>真实姓名:<input type="text" name='relname' id="relname"></p>
+	        <p>工资:<input type="number" name='salay' id="salay"></p>
+	        <p><input type="submit" value="注册"></p>
+	</form>
+</body>
+</html>
+<script>
+	function login(){
+		var username = document.getElementById('username').value;
+		var password = document.getElementById('password').value;
+		var repassword = document.getElementById('repassword').value;
+		var relname = document.getElementById('relname').value;
+		//var salay = Document.getElementById('salay').value;
+		if(username == ''){
+			alert('用户名不能为空！！！！');
+			return false;
+		}
+		if(password == ''){
+			alert('密码不能为空！！！！');
+			return false;
+		}
+		if(password != repassword){
+			alert('两次密码不一致！！！');
+			return false;
+		}
+
+		return true;
+	
+	}
+</script>

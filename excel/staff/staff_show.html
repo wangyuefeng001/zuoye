@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<form action="{url:staff/empload}" method="post">
+	<input type="submit" value="导出">
+</form>
+<form action="{url:staff/impload}" method="post">
+	<input type="submit" value="导入">
+</form>
+<form action="{url:staff/staff_show}" method="post">
+	<input type="text" name="keyword" id="keyword">
+	<input type="submit" value="搜索">
+</form>
+	<table>
+			<tr>
+				<th>编号</th>
+				<th>员工姓名</th>
+				<th>密码</th>
+				<th>真是姓名</th>
+				<th>薪资</th>
+				<th>加入时间</th>
+			</tr>
+	 		{foreach:items=$data}
+            <tr>
+            	<td>{echo:$key+1}</td>
+            	<td>{echo:$item['username']}</td>
+            	<td>{echo:$item['password']}</td>
+            	<td>{echo:$item['relname']}</td>
+            	<td>{echo:$item['salay']}</td>
+            	<td>{echo:$item['addtime']}</td>
+            </tr>
+ 		{/foreach} 
+	</table>
+</body>
+</html>
