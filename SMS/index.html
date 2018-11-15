@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="index.php" method="post" onsubmit="return reg()">
+		<table>
+			<tr>
+				<td>用户名：</td>
+				<td><input type="text" name="username" id="username"></td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
+				<td>手机号：</td>
+				<td><input type="text" name="phone" id="phone"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="text" name="code" id="code"><input id="sendCode" type="button" value="发送验证码"></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input id="submit" type="submit" value="注册"></td>
+			
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+<script src="jquery-2.1.4.min.js"></script>
+<script>
+
+	$('#sendCode').click(function(){
+		var phone=$('#phone').val();
+		if(phone == ''){
+			alert('请输入手机号！！！！');
+			return false;
+		}if(phone.length <8 && phone.length > 16){
+			alert('请输入8-16位密码');
+			return false;
+		}
+		$.ajax({
+			url:'SendTemplateSMS.php',
+			data:{phone:phone},
+			type:"get",
+			dataType:'json',
+			success:function(e){
+              if(e == 'ok'){
+                  alert('信息发送失成功，请注意查收');
+              }else{
+                  alert('信息发送失败，请稍后重试！！！ ');
+              }
+			}
+		})
+	})
+	$('#submit').click(function(){
+		 var username = $('#username').val();
+		 var code = $('#code').val();
+		 if(username =='' && username.length==0){
+		 	alert('用户名不能为空！！！！');
+		 	return false;
+		 }
+		 if(code ==''){
+		 	alert('验证码不能为空');
+		 	return false;
+		 }
+		 return true;
+	})
+
+</script>
