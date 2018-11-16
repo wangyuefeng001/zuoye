@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="">
+		<table>
+			<tr>
+				<td><input type="text" name="search" id="search"></td>
+			</tr>
+		</table>
+	</form>
+	<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>
+<script src="chart/highcharts.js"></script>
+<script src="https://img.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script src="jquery-2.1.4.min.js"></script>
+<script>
+	$("#search").blur(function(){
+          var search=$("#search").val();
+           if(search=='' || $.trim(search).length == 0  ){
+           	   alert('地址不能为空！！！');
+           	   return;
+           }
+           if(search.length >30){
+           	  alert('地址不能大于30字符');
+           	  return;
+           }
+           var city = /^[A-Za-z0-9\u4e00-\u9fa5]+$/i;
+           if(!city.test(search)){
+           	  alert('文本值必须为数字/字母/汉字');
+           	  return;
+           }
+           $.ajax({
+           	  url:'index.php',
+           	  type:'get',
+           	  dataType:'json',
+           	  data:{search:search},
+           	  success:function(e){
+           	  	var arrDate = new Array();
+           	  	var arrayArr= new Array();
+           	  	var data = eval(data);
+       			for (var i =0; i<e.length; i++) {
+       				var max = e[i]['tmp_max'];
+       				var min = e[i]['tmp_min'];
+       				var date = e[i]['date'];
+       				var arr=[max,min];
+       				var arr1=arr.map(Number);
+       				  //date1.push(date);
+       				 arrayArr.push(arr1);
+       				 
+       				 arrDate.push(date);
+       				
+       			}
+              // console.log();
+               weather(arrayArr,arrDate);
+           	  } 
+
+             
+           })
+       
+
+	})
+
+	function weather(arr,arrDate){
+		var options = Highcharts.chart('container', {
+		    chart: {
+		        type: 'columnrange', // columnrange 依赖 highcharts-more.js
+		        inverted: true
+		    },
+		    title: {
+		        text: '每月温度变化范围'
+		    },
+		    subtitle: {
+		        text: '2009 挪威某地'
+		    },
+		    xAxis: {
+		        categories: [arrDate]
+		    },
+		    yAxis: {
+		        title: {
+		            text: '温度 ( °C )'
+		        }
+		    },
+		    tooltip: {
+		        valueSuffix: '°C'
+		    },
+		    plotOptions: {
+		        columnrange: {
+		            dataLabels: {
+		                enabled: true,
+		                formatter: function () {
+		                    return this.y + '°C';
+		                }
+		            }
+		        }
+		    },
+		    legend: {
+		        enabled: false
+		    },
+		    series: [
+		        {name: '温度',data: arr}
+		    ]
+     });
+      var chart = Highcharts.chart('container',options);
+	}
+
+</script>
