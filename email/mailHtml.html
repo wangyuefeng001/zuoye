@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<form action="{url:/site/sendMail}" method="post" onsubmit="return reEmail()">
+		<table>
+			<tr>
+				<td>用户名：</td>
+				<td><input type="text" name="name" id="name"></td>
+			</tr>
+			<tr>
+				<td>密码：</td>
+				<td><input type="password" name="password" id="password"></td>
+			</tr>
+			<tr>
+				<td>确认密码：</td>
+				<td><input type="password" name="repassword" id="repassword"></td>
+			</tr>
+			<tr>
+				<td>邮箱：</td>
+				<td><input type="text" name="email"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="注册"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
+<script src="public/jquery-2.1.4.min.js"></script>
+<script>
+	function reEmail(){
+		var name=document.getElementById('name').value;
+		var password=document.getElementById('password').value;
+		var repassword=document.getElementById('repassword').value;
+		if(name==''){
+			alert('用户名不能为空！！');
+			return false;
+		}
+		if(password == ''){
+			alert('密码不能为空！！');
+			return false;
+		}
+		if(password != repassword){
+			alert('两次密码不一致！！');
+			return false;
+		}
+		return true;
+	}
+</script>
