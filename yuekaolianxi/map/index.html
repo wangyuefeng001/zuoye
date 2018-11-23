@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body3>
+	<input type="text" name="map" id="map"><input type="button" value="搜索">
+  <div>
+     	<div id="container" style="width:300px;height:256px;float:left;"></div>
+	    <img src="" id="pic">
+  </div>
+		
+	
+</body>
+</html>
+<script src="jquery.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WIwre59Id0Mvo42HG1Bj6AaLdy3uCDzZ"></script>
+<script>
+var lng,lat;
+$("[type=button]").click(function(){
+	var address = $("#map").val();
+
+	var map = new BMap.Map("container");      
+	map.centerAndZoom(new BMap.Point(address), 15);      
+	// 创建地址解析器实例     
+	var myGeo = new BMap.Geocoder();      
+	// 将地址解析结果显示在地图上，并调整地图视野    
+	myGeo.getPoint(address, function(point){      
+	    if (point) {      
+	        map.centerAndZoom(point, 16);      
+	        map.addOverlay(new BMap.Marker(point));
+            lng=point['lng'];
+            lat=point['lat'];
+           var url="http://api.map.baidu.com/panorama/v2?ak=WIwre59Id0Mvo42HG1Bj6AaLdy3uCDzZ&width=300&height=256&location="+lng+","+lat+"&fov=180";
+        $('#pic').attr('src',url);		// 将地址赋给img元素的src属
+       
+	    } 
+
+	 });
+
+
+})
+	
+</script>

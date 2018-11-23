@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<input type="text" name="search" id="search" style="width:400px;height:50px;"><input type="button" value="搜索" style="width:80px;height:52px;">
+	
+</body>
+<div id="container" style="width: 600px;height:400px;"></div>
+</html>
+<script src="jquery.js"></script>
+<script src="chart/highcharts.js"></script>
+<script src="https://img.hcharts.cn/highcharts/highcharts-more.js"></script>
+<script>
+
+	$("[type=button]").click(function(){
+		 var search =$("#search").val();
+var max,min,date;
+		$.ajax({
+			url:'index.php',
+			data:{search:search},
+			type:'post',
+			dataType:'json',
+			success:function(e){
+				//console.log(e);return;
+				var arrData = new Array();
+				var arrDate = new Array();
+                  for (var i = e.length - 1; i >= 0; i--) {
+                  	max=e[i]['tmp_max'];
+                  	min=e[i]['tmp_min'];
+                  	date=e[i]['date']
+                  	// max=parseInt(max);
+                  	// min=parseInt(min);
+                    var arr= [max,min];
+                    arr=arr.map(Number);
+                 
+                    arrData.push(arr);
+                    arrDate.push(date);
+                 
+                    
+                 }
+             
+                  chart(arrData,arrDate);
+			} 
+		})
+	})
+	function chart(arr,date){
+		var options = Highcharts.chart('container', {
+		    chart: {
+		        type: 'columnrange', // columnrange 依赖 highcharts-more.js
+		        inverted: true
+		    },
+		    title: {
+		        text: '每月温度变化范围'
+		    },
+		    subtitle: {
+		        text: '2018天气变化'
+		    },
+		    xAxis: {
+		        categories: date
+		    },
+		    yAxis: {
+		        title: {
+		            text: '温度 ( °C )'
+		        }
+		    },
+		    tooltip: {
+		        valueSuffix: '°C'
+		    },
+		    plotOptions: {
+		        columnrange: {
+		            dataLabels: {
+		                enabled: true,
+		                formatter: function () {
+		                    return this.y + '°C';
+		                }
+		            }
+		        }
+		    },
+		    legend: {
+		        enabled: false
+		    },
+		    series: [{
+		        name: '温度',
+		        data: arr
+		    }]
+		});
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+	}
+	
+	
+</script>
