@@ -4,54 +4,21 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 </head>
-<style>
-	#box ul li:nth-child(1){
-          color: red;
-	}
-	#box1{
-		border: 1px solid red;
-		width:200px;
-		height:200px;
-		transition:width 2s;
-
-	}
-	#box1:hover{
-		 width:500px;
-		}
-	#box2{
-		border: 1px solid yellow;
-		width:200px;
-		height:200px;
-		border-radius: 100px;
-		box-shadow: 10px 10px 1px red;
-
-	}
-</style>
-<video src="11.6.mp4" style="width:200px;height:200px;" controls='controls'></video>
-<audio src="xingfu.mp3" style="width:200px;height:200px;" controls='controls'></audio>
-<form action="">
-	<input type="date">
-	<input type="url">
-	<input type="time">
-	<input type="email">
-	<input type="search">
-	<input type="submit" value="提交">
-</form>
-<a href="index.php?id=1&data-pid=4">11</a>
-<div id="box">
-		<ul>
-			<li><p>1</p></li>
-			<li><p>2</p></li>
-			<li><p>3</p></li>
-			<li><p>4</p></li>
-			<li><p>5</p></li>
-		</ul>
-</div>
-<div id="box1">
-	Hi body
-</div>
-<div id="box2">
-	Hi body
-</div>
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
+<body>
+	<table class="table">
+		<tr>
+			<td>编号</td>
+			<td>姓名</td>
+			<td>年龄</td>
+			<td>性别</td>
+			<td>贯籍</td>
+		</tr>
+		<tr><td>1</td><td>张三</td><td>22</td><td>男</td><td>河北</td></tr>
+		<tr><td>2</td><td>李四</td><td>22</td><td>男</td><td>河南</td></tr>
+		<tr><td>3</td><td>王五</td><td>22</td><td>男</td><td>山西</td></tr>
+		<tr><td>4</td><td>赵六</td><td>22</td><td>男</td><td>山东</td></tr>
+		<tr><td>5</td><td>陈七</td><td>22</td><td>男</td><td>安徽</td></tr>
+	</table>
 </body>
 </html>
